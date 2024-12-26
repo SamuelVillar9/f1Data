@@ -25,47 +25,50 @@ class TeamCrudController extends AbstractCrudController
     }
 
     public function configureFields(string $pageName): iterable
-{
-    $fields = [
-        TextField::new('fullNameTeam', 'Nombre del Equipo'),
-        TextField::new('base', 'Base del equipo')->setRequired(false),
-        ImageField::new('urlTeamLogo', 'Foto Logo del Equipo')
-            ->setBasePath('uploads/team_logos')
-            ->setUploadDir('public/uploads/team_logos')
-            ->setRequired(false)
-            ->setSortable(false),
-        ImageField::new('urlTeamCar', 'Foto del Coche')
-            ->setBasePath('uploads/team_cars')
-            ->setUploadDir('public/uploads/team_cars')
-            ->setRequired(false)
-            ->setSortable(false),
-        TextField::new('teamChief', 'Jefe de Equipo')->setRequired(false),
-        TextField::new('technicalChief', 'Jefe Técnico')->setRequired(false),
-        AssociationField::new('seasonId', 'Temporada')->setFormTypeOption('choice_label', 'seasonName'),
-    ];
+    {
+        $fields = [
+            TextField::new('fullNameTeam', 'Nombre del Equipo'),
+            TextField::new('base', 'Base del equipo')->setRequired(false),
+            ImageField::new('urlTeamLogo', 'Foto Logo del Equipo')
+                ->setBasePath('uploads/team_logos')
+                ->setUploadDir('public/uploads/team_logos')
+                ->setRequired(false)
+                ->setSortable(false),
+            ImageField::new('urlTeamCar', 'Foto del Coche')
+                ->setBasePath('uploads/team_cars')
+                ->setUploadDir('public/uploads/team_cars')
+                ->setRequired(false)
+                ->setSortable(false),
+            TextField::new('teamChief', 'Jefe de Equipo')->setRequired(false),
+            TextField::new('technicalChief', 'Jefe Técnico')->setRequired(false),
+            AssociationField::new('seasonId', 'Temporada')->setFormTypeOption('choice_label', 'seasonName'),
+        ];
 
-    if ($pageName === Crud::PAGE_DETAIL) {
-        $fields[] = AssociationField::new('drivers', 'Pilotos')
-            ->setFormTypeOption('by_reference', false)
-            ->formatValue(function ($value, $entity) {
-                $drivers = $entity->getDrivers();
-                $links = [];
-                foreach ($drivers as $driver) {
-                    $links[] = sprintf(
-                        '<a href="/admin/?crudAction=detail&crudControllerFqcn=%s&entityId=%d">%s</a>',
-                        urlencode(DriverCrudController::class),
-                        $driver->getId(),
-                        htmlspecialchars($driver->getFullDriverName())
-                    );
-                }
-                return implode(', ', $links);
-            })
-            ->onlyOnDetail();
+        // Si estamos en la página de detalles (detalle del equipo)
+        if ($pageName === Crud::PAGE_DETAIL) {
+            $fields[] = AssociationField::new('drivers', 'Pilotos')
+                ->setFormTypeOption('by_reference', false)
+                ->formatValue(function ($value, $entity) {
+                    $drivers = $entity->getDrivers();
+                    $links = [];
+                    $seasonId = $entity->getSeasonId()->getId();  // Obtenemos el seasonId de la entidad Team (asegúrate de que esto sea correcto)
+                    
+                    foreach ($drivers as $driver) {
+                        $links[] = sprintf(
+                            '<a href="/admin/?crudAction=detail&crudControllerFqcn=%s&entityId=%d&seasonId=%d">%s</a>',
+                            urlencode(DriverCrudController::class),
+                            $driver->getId(),
+                            $seasonId,  // Aquí agregamos el seasonId
+                            htmlspecialchars($driver->getFullDriverName())
+                        );
+                    }
+                    return implode(', ', $links);
+                })
+                ->onlyOnDetail();
+        }
+
+        return $fields;
     }
-
-    return $fields;
-}
-
 
     public function configureCrud(Crud $crud): Crud
     {
