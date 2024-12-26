@@ -1,3 +1,12 @@
 body {
     background-color: skyblue;
 }
+
+.fa-custom-circuit {
+    background-image: url('/assets/styles/fa-circuit.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}

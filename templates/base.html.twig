@@ -1,17 +1,38 @@
+<!-- filepath: /c:/xampp/htdocs/PHP/f1data/f1data/templates/base.html.twig -->
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}F1 Data Admin Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="/path/to/your/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>F1 Data Admin Dashboard</h1>
+    </header>
+    <section class="hero">
+        <img src="https://example.com/free-f1-image.jpg" alt="Formula 1 Hero Image">
+        <div class="hero-text">
+            <h2>Manage F1 Data Efficiently</h2>
+            <p>Control data about drivers, teams, circuits, races, qualifying, and all the statistics from the whole season.</p>
+        </div>
+    </section>
+    <nav>
+        <ul>
+            <li><a href="/admin">Dashboard</a></li>
+            <li><a href="/admin/teams">Teams</a></li>
+            <li><a href="/admin/circuits">Circuits</a></li>
+            <li><a href="/admin/races">Races</a></li>
+            <li><a href="/admin/qualifying">Qualifying</a></li>
+            <li><a href="/admin/statistics">Statistics</a></li>
+        </ul>
+    </nav>
+    <main>
+        {% block body %}
+        <h2>Welcome to the Admin Dashboard</h2>
+        <p>Select a section from the navigation menu to start managing the data.</p>
         {% endblock %}
-
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-</html>
+    </main>
+    <footer>
+        <p>&copy; 2023 F1 Data Admin Dashboard. All rights reserved.</p>
+    </footer>
