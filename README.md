@@ -52,6 +52,44 @@ Pasos para instalar:
         php -S 127.0.0.1:8000 -t public/
         Esto iniciará la aplicación y podrás acceder a ella desde tu navegador en http://127.0.0.1:8000.
 
+COMANDO 'app:create-user'
+
+- Descripción
+    El comando app:create-user permite crear un usuario en la base de datos con una contraseña en texto claro que se hashiza antes de ser almacenada. Este comando se utiliza para generar un nuevo usuario con un correo electrónico y una contraseña segura (hasheada).
+
+- Estructura y Funcionalidad
+    Este comando está diseñado para ser ejecutado desde la línea de comandos en un entorno Symfony, y hace uso de los servicios de Symfony como el UserPasswordHasherInterface para manejar el hash de la contraseña y EntityManagerInterface para persistir el usuario en la base de datos.
+
+- Flujo de ejecución
+    1. Inyección de dependencias:
+
+        - UserPasswordHasherInterface: Este servicio es utilizado para generar una versión segura (hasheada) de la contraseña proporcionada.
+        - EntityManagerInterface: Se utiliza para manejar las operaciones de persistencia de datos en la base de datos (guardar el usuario creado).
+
+    2. Configuración del comando: El comando se configura con:
+
+        - Un nombre app:create-user, que será usado al ejecutar el comando en la terminal.
+        - Una descripción que explica lo que hace el comando: "Crea un usuario con contraseña hasheada".
+
+    3. Ejecución del comando:
+
+        - Los datos del nuevo usuario se definen manualmente dentro del método execute(). En este caso, el email es 'usuario_prueba' y la contraseña es '00000000'.
+        - Se crea una nueva instancia de la clase User, se asigna el correo electrónico y los roles (en este caso, el rol 'ROLE_USER').
+        - La contraseña en texto claro se hashiza usando el UserPasswordHasherInterface.
+        - El usuario con la contraseña hasheada se persiste en la base de datos utilizando el EntityManagerInterface.
+        - Finalmente, el comando muestra un mensaje de éxito en la consola: "Usuario creado exitosamente."
+
+- Ejecución del comando
+    Una vez que hayas configurado todo correctamente, puedes ejecutar el comando en la terminal para crear un nuevo usuario con una contraseña hasheada:
+
+        php bin/console app:create-user
+    
+    Esto creará el usuario con el email 'usuario_prueba' y la contraseña '00000000', hasheada antes de ser almacenada en la base de datos.
+
+- Notas importantes
+    Este comando está diseñado para ser utilizado principalmente en un entorno de desarrollo o prueba. No se recomienda utilizarlo en producción sin la validación y personalización adecuadas.
+    La contraseña '00000000' y el correo 'usuario_prueba' se definen de manera estática en el código, pero podrían ser modificados para aceptar entradas dinámicas a través de la consola si se desea.
+
 ESTRUCTURA DE LA APLICACIÓN
 - Front-end (Interfaz pública): La interfaz pública de la aplicación es simple, con un navbar que proporciona enlaces a las siguientes secciones:
     Escuderías
