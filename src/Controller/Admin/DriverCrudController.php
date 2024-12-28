@@ -38,17 +38,18 @@ class DriverCrudController extends AbstractCrudController
             TextField::new('country', 'País de Nacimiento')->setRequired(false),
             IntegerField::new('racingNumber', 'Dorsal')->setRequired(false),
 
-            // Configurar el campo Team como una relación
-            AssociationField::new('teamId', 'Escudería')
-                ->setFormTypeOption('choice_label', 'fullNameTeam'),
-
-
             // Configurar el campo Season como una relación
             AssociationField::new('season', 'Temporada')
-                ->setFormTypeOption('choice_label', 'seasonName')
+                ->setFormTypeOption('choice_label', 'seasonName'),
+
+            AssociationField::new('teamId', 'Escudería')
+                ->setFormTypeOption('choice_label', function ($team) {
+                    // Aquí se combina el nombre de la escudería y el año de la temporada
+                    return $team->getFullNameTeam() . ' ' . $team->getSeasonId()->getSeasonName();
+                }),
         ];
     }
-    
+
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
@@ -91,5 +92,4 @@ class DriverCrudController extends AbstractCrudController
                 return $action->setLabel('Guardar y continuar');
             });
     }
-
 }
