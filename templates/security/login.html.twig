@@ -3,48 +3,53 @@
 {% block title %}Acceso a Administración{% endblock %}
 
 {% block body %}
-    <div class="container-fluid" style="background-image: url('{{ asset('bg-login.jpeg') }}'); background-size: cover; background-position: center; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center;">
-        <div class="card p-4" style="width: 100%; max-width: 400px; background-color: rgba(255, 255, 255, 0.8); border-radius: 8px;">
-            <form method="post">
-                {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %}
+	<div class="hero">
+		<div class="mask">
+			<div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+				<div class="card p-4" style="width: 100%; max-width: 400px; background-color: rgba(255, 255, 255, 0.8); border-radius: 8px;">
+					<form method="post">
+						{% if error %}
+							<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+						{% endif %}
 
-                {% if app.user %}
-                    <div class="mb-3 text-center">
-                        Has iniciado sesión como {{ app.user.userIdentifier }},
-                        <a href="{{ path('app_logout') }}">Cerrar Sesión</a>
-                    </div>
-                {% endif %}
+						{% if app.user %}
+							<div class="mb-3 text-center">
+								Has iniciado sesión como
+								{{ app.user.userIdentifier }},
+								<a href="{{ path('app_logout') }}">Cerrar Sesión</a>
+							</div>
+						{% endif %}
 
-                <!-- Logo -->
-                <div class="text-center mb-2">
-                    <img src="{{ asset('logo.png') }}" alt="Logo" style="max-width: 150px; height: auto;">
-                </div>
+						<!-- Logo -->
+						<div class="text-center mb-2">
+							<img src="{{ asset('logo.png') }}" alt="Logo" style="max-width: 150px; height: auto;">
+						</div>
 
-                <!-- Título -->
-                <div class="text-center mb-2">
-                    <h2 class="h2 mb-3 font-weight-normal">ACCESO A F1DATA</h2>
-                </div>
+						<!-- Título -->
+						<div class="text-center mb-2">
+							<h2 class="h2 mb-3 font-weight-normal">ACCESO A F1DATA</h2>
+						</div>
 
-                <div class="mb-3">
-                    <label for="username">EMAIL</label>
-                    <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus style="width: 100%;">
-                </div>
+						<div class="mb-3">
+							<label for="username">EMAIL</label>
+							<input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus style="width: 100%;">
+						</div>
 
-                <div class="mb-3">
-                    <label for="password">PASSWORD</label>
-                    <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required style="width: 100%;">
-                </div>
+						<div class="mb-3">
+							<label for="password">PASSWORD</label>
+							<input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required style="width: 100%;">
+						</div>
 
-                <div class="mb-3 text-center">
-                    <button class="btn btn-md btn-primary" type="submit">
-                        Iniciar Sesión
-                    </button>
-                </div>
+						<div class="mb-3 text-center">
+							<button class="btn btn-md btn-primary" type="submit">
+								Iniciar Sesión
+							</button>
+						</div>
 
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            </form>
-        </div>
-    </div>
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
