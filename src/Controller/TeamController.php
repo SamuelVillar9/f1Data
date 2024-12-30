@@ -23,8 +23,8 @@ class TeamController extends AbstractController
     #[Route('/escuderias', name: 'team')]
     public function index(Request $request, TeamRepository $teamRepository): Response
     {
-        // Obtener todas las temporadas desde el repositorio
-        $seasons = $this->entityManager->getRepository(Season::class)->findAll();
+        // Obtener todas las temporadas ordenadas por 'seasonName' de forma ascendente
+        $seasons = $this->entityManager->getRepository(Season::class)->findBy([], ['seasonName' => 'ASC']);
         
         // Capturar el ID de la temporada seleccionada desde el formulario (si lo hay)
         $seasonId = $request->query->get('season_id');

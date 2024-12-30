@@ -11,7 +11,7 @@
 		<form method="get" action="{{ path('team') }}" class="mb-4">
 			<label for="season_id" class="form-label">Selecciona la temporada:</label>
 			<select name="season_id" id="season_id" class="form-select">
-				<option value="">Selecciona una temporada</option>
+				<option value="">Todas las escuderías</option>
 				{% for season in seasons %}
 					<option value="{{ season.id }}" {% if season.id == app.request.query.get('season_id') %} selected {% endif %}>
 						{{ season.seasonName }}
@@ -32,6 +32,10 @@
 						{% endif %}
 						<div class="card-body d-flex flex-column">
 							<h5 class="card-title">{{ team.fullNameTeam }}</h5>
+							<p class="card-text">
+								<strong>Base del equipo:</strong>
+								{{ team.base }}
+							</p>
 							<p class="card-text">
 								<strong>Temporada:</strong>
 								{{ team.seasonId ? team.seasonId.seasonName : 'Temporada no disponible' }}

@@ -11,7 +11,7 @@
 		<form method="get" action="{{ path('driver') }}" class="mb-4">
 			<label for="season" class="form-label">Selecciona la temporada:</label>
 			<select name="season" id="season" class="form-select">
-				<option value="">Selecciona una temporada</option>
+				<option value="">Todos los pilotos</option>
 				{% for season in seasons %}
 					<option value="{{ season.id }}" {% if season.id == app.request.query.get('season') %} selected {% endif %}>
 						{{ season.seasonName }}

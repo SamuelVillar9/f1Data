@@ -25,7 +25,7 @@ class DriverController extends AbstractController
     public function index(Request $request, DriverRepository $driverRepository): Response
     {   
         // Obtener todas las temporadas desde el repositorio
-        $seasons = $this->entityManager->getRepository(Season::class)->findAll();
+        $seasons = $this->entityManager->getRepository(Season::class)->findBy([], ['seasonName' => 'ASC']);
         
         // Capturar el ID de la temporada seleccionada desde el formulario (si lo hay)
         $seasonId = $request->query->get('season');
