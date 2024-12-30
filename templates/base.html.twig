@@ -6,6 +6,7 @@
 		<title>F1 DATA</title>
 		<link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 		<style>
 			body {
 				background-color: #212529;
@@ -69,7 +70,13 @@
 						</li>
 					</ul>
 					{% if app.user %}
-						<a href="{{ path('admin') }}" class="btn btn-outline-primary ms-auto">IR AL DASHBOARD</a>
+						<div class="ms-auto" role="group">
+							<a href="{{ path('admin') }}" class="btn btn-outline-primary">IR AL DASHBOARD</a>
+							<a href="{{ path('app_logout') }}" class="btn btn-outline-danger">
+								<i class="fas fa-sign-out-alt me-2"></i>
+								CERRAR SESIÓN
+							</a>
+						</div>
 					{% else %}
 						<!-- Button added for /login, pushed to the right -->
 						<a href="{{ path('app_login') }}" class="btn btn-outline-light ms-auto">INICIAR SESIÓN</a>
@@ -84,9 +91,14 @@
 					<div class="text-center text-white">
 						<h1 class="mb-3">Bienvenido a la App de Fórmula 1</h1>
 						<h4 class="mb-3">Explora información sobre las escuderías, pilotos y circuitos de Fórmula 1.</h4>
+
 						{% if app.user %}
 							<a class="btn btn-outline-light btn-lg" href="{{ path('admin') }}" role="button">IR AL DASHBOARD</a>
 						{% else %}
+							<p class="mb-3">Inicia sesión para acceder al panel de administración.</p>
+							<p class="mb-3">Si no tienes acceso, pídeme acceso enviando un correo a
+								<i>samuelvillar9@gmail.com</i>
+							</p>
 							<a class="btn btn-outline-primary btn-lg" href="{{ path('app_login') }}" role="button">INICIAR SESIÓN</a>
 						{% endif %}
 					</div>
