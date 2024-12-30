@@ -36,6 +36,9 @@ class Meeting
     #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'meetingId')]
     private Collection $sessions;
 
+    #[ORM\Column]
+    private ?int $roundNumber = null;
+
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
@@ -132,6 +135,18 @@ class Meeting
                 $session->setMeetingId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRoundNumber(): ?int
+    {
+        return $this->roundNumber;
+    }
+
+    public function setRoundNumber(int $roundNumber): static
+    {
+        $this->roundNumber = $roundNumber;
 
         return $this;
     }
