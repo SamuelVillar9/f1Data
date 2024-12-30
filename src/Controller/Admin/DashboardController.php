@@ -69,13 +69,15 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::section();
+        yield MenuItem::section('GESTIÓN DE DATOS');
         yield MenuItem::linkToCrud('Temporadas', 'fa fa-solid fa-calendar', Season::class);
         yield MenuItem::linkToCrud('Escuderías', 'fa fa-solid fa-people-group', Team::class);
         yield MenuItem::linkToCrud('Pilotos', 'fa fa-solid fa-id-card', Driver::class);
         yield MenuItem::linkToCrud('Circuitos', 'fa fa-solid fa-ring', Circuit::class);
-        yield MenuItem::section();
-        yield MenuItem::linkToRoute('Vista Pública', 'fa fa-eye', 'home');
+        yield MenuItem::section('VISTA PÚBLICA');
+        yield MenuItem::linkToUrl('Escuderías', 'fa fa-solid fa-people-group', '/escuderías');
+        yield MenuItem::linkToUrl('Pilotos', 'fa fa-solid fa-id-card', '/pilotos');
+        yield MenuItem::linkToUrl('Circuitos', 'fa fa-solid fa-ring', '/circuitos');
         yield MenuItem::section();
         yield MenuItem::linkToLogout('Cerrar Sesión', 'fa fa-sign-out');
     }
