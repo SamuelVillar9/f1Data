@@ -30,10 +30,17 @@ class Season
     #[ORM\OneToMany(targetEntity: Driver::class, mappedBy: 'season')]
     private Collection $drivers;
 
+    /**
+     * @var Collection<int, Schedule>
+     */
+    #[ORM\OneToMany(targetEntity: Schedule::class, mappedBy: 'seasonId')]
+    private Collection $schedules;
+
     public function __construct()
     {
         $this->teams = new ArrayCollection();
         $this->drivers = new ArrayCollection();
+        $this->schedules = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -116,5 +123,35 @@ class Season
     public function __toString(): string
     {
         return $this->seasonName;
+    }
+
+    /**
+     * @return Collection<int, Schedule>
+     */
+    public function getSchedules(): Collection
+    {
+        return $this->schedules;
+    }
+
+    public function addSchedule(Schedule $schedule): static
+    {
+        if (!$this->schedules->contains($schedule)) {
+            $this->schedules->add($schedule);
+            $schedule->setSeasonId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSchedule(Schedule $schedule): static
+    {
+        if ($this->schedules->removeElement($schedule)) {
+            // set the owning side to null (unless already changed)
+            if ($schedule->getSeasonId() === $this) {
+                $schedule->setSeasonId(null);
+            }
+        }
+
+        return $this;
     }
 }

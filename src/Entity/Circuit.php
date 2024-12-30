@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CircuitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CircuitRepository::class)]
@@ -27,6 +29,17 @@ class Circuit
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $urlCircuitPhoto = null;
+
+    /**
+     * @var Collection<int, Meeting>
+     */
+    #[ORM\OneToMany(targetEntity: Meeting::class, mappedBy: 'circuitId')]
+    private Collection $meetings;
+
+    public function __construct()
+    {
+        $this->meetings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +102,36 @@ class Circuit
     public function setUrlCircuitPhoto(?string $urlCircuitPhoto): static
     {
         $this->urlCircuitPhoto = $urlCircuitPhoto;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Meeting>
+     */
+    public function getMeetings(): Collection
+    {
+        return $this->meetings;
+    }
+
+    public function addMeeting(Meeting $meeting): static
+    {
+        if (!$this->meetings->contains($meeting)) {
+            $this->meetings->add($meeting);
+            $meeting->setCircuitId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMeeting(Meeting $meeting): static
+    {
+        if ($this->meetings->removeElement($meeting)) {
+            // set the owning side to null (unless already changed)
+            if ($meeting->getCircuitId() === $this) {
+                $meeting->setCircuitId(null);
+            }
+        }
 
         return $this;
     }
