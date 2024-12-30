@@ -14,6 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use App\Entity\Season;
 use App\Entity\Team;
 use App\Entity\Driver;
+use App\Entity\Schedule;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -70,10 +71,11 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::section('GESTIÓN DE DATOS');
-        yield MenuItem::linkToCrud('Temporadas', 'fa fa-solid fa-calendar', Season::class);
+        yield MenuItem::linkToCrud('Temporadas', 'fa fa-solid fa-list', Season::class);
         yield MenuItem::linkToCrud('Escuderías', 'fa fa-solid fa-people-group', Team::class);
         yield MenuItem::linkToCrud('Pilotos', 'fa fa-solid fa-id-card', Driver::class);
         yield MenuItem::linkToCrud('Circuitos', 'fa fa-solid fa-ring', Circuit::class);
+        yield MenuItem::linkToCrud('Calendario', 'fa fa-solid fa-calendar-days', Schedule::class);
         yield MenuItem::section('VISTA PÚBLICA');
         yield MenuItem::linkToUrl('Escuderías', 'fa fa-solid fa-people-group', '/escuderias');
         yield MenuItem::linkToUrl('Pilotos', 'fa fa-solid fa-id-card', '/pilotos');
