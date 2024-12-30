@@ -32,8 +32,8 @@ class CreateUserCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Los datos del nuevo usuario
-        $email = 'usuario_prueba'; // El email del usuario
-        $plainPassword = '00000000'; // La contraseña en texto claro
+        $email = 'test@correo.com'; // El email del usuario
+        $plainPassword = '12345678'; // La contraseña en texto claro
 
         // Creamos el usuario
         $user = new User();
