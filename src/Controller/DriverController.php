@@ -35,7 +35,7 @@ class DriverController extends AbstractController
             $season = $this->entityManager->getRepository(Season::class)->find($seasonId);
             
             // Obtener los pilotos de esa temporada
-            $drivers = $driverRepository->findBy(['season' => $season]);
+            $drivers = $driverRepository->findBy(['season' => $season], ['teamId' => 'ASC']);
         } else {
             // Si no se seleccionó ninguna temporada, mostrar todos los pilotos
             $drivers = $driverRepository->findAll();
