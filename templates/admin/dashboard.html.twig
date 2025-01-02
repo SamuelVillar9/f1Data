@@ -1,6 +1,6 @@
 {% extends '@EasyAdmin/layout.html.twig' %}
 
-{% block main %}s
+{% block main %}
 	<div>
 		<!-- Header y texto bienvenida -->
 		<div class="row">
@@ -22,7 +22,7 @@
 						<h5 class="card-title">
 							Temporadas
 						</h5>
-						<h6 class="card-subtitle mb-2 text-muted">X Temporadas dadas de alta</h6>
+						<h6 class="card-subtitle mb-2 text-muted">{{ seasonCount }} Temporadas dadas de alta</h6>
 						<div class="d-flex align-items-center">
 							<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\SeasonCrudController'}) }}" class="card-link me-2">
 								<i class="fa-solid fa-plus"></i>
@@ -45,7 +45,7 @@
 						<h5 class="card-title">
 							Escuderías
 						</h5>
-						<h6 class="card-subtitle mb-2 text-muted">X Escuderías dadas de alta</h6>
+						<h6 class="card-subtitle mb-2 text-muted">{{ teamCount }} Escuderías dadas de alta</h6>
 						<div class="d-flex align-items-center">
 							<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\TeamCrudController'}) }}" class="card-link me-2">
 								<i class="fa-solid fa-plus"></i>
@@ -68,7 +68,7 @@
 						<h5 class="card-title">
 							Pilotos
 						</h5>
-						<h6 class="card-subtitle mb-2 text-muted">X Pilotos dados de alta</h6>
+						<h6 class="card-subtitle mb-2 text-muted">{{ driverCount }} Pilotos dados de alta</h6>
 						<div class="d-flex align-items-center">
 							<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\DriverCrudController'}) }}" class="card-link me-2">
 								<i class="fa-solid fa-plus"></i>
@@ -91,7 +91,7 @@
 						<h5 class="card-title">
 							Circuitos
 						</h5>
-						<h6 class="card-subtitle mb-2 text-muted">X Circuitos dados de alta</h6>
+						<h6 class="card-subtitle mb-2 text-muted">{{ circuitCount }} Circuitos dados de alta</h6>
 						<div class="d-flex align-items-center">
 							<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\CircuitCrudController'}) }}" class="card-link me-2">
 								<i class="fa-solid fa-plus"></i>
@@ -117,7 +117,7 @@
 						<h5 class="card-title">
 							Calendarios
 						</h5>
-						<h6 class="card-subtitle mb-2 text-muted">X Calendarios dados de alta</h6>
+						<h6 class="card-subtitle mb-2 text-muted">{{ scheduleCount }} Calendarios dados de alta</h6>
 						<div class="d-flex align-items-center">
 							<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\ScheduleCrudController'}) }}" class="card-link me-2">
 								<i class="fa-solid fa-plus"></i>
@@ -140,7 +140,7 @@
 						<h5 class="card-title">
 							Grandes Premios
 						</h5>
-						<h6 class="card-subtitle mb-2 text-muted">X Grandes Premios dadas de alta</h6>
+						<h6 class="card-subtitle mb-2 text-muted">{{ meetingCount }} Grandes Premios dadas de alta</h6>
 						<div class="d-flex align-items-center">
 							<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\MeetingCrudController'}) }}" class="card-link me-2">
 								<i class="fa-solid fa-plus"></i>
@@ -163,7 +163,7 @@
 						<h5 class="card-title">
 							Sesiones
 						</h5>
-						<h6 class="card-subtitle mb-2 text-muted">X Sesiones dadas de alta</h6>
+						<h6 class="card-subtitle mb-2 text-muted">{{ sessionCount }} Sesiones dadas de alta</h6>
 						<div class="d-flex align-items-center">
 							<a href="#" class="card-link me-2">
 								<i class="fa-solid fa-plus"></i>
@@ -179,8 +179,18 @@
 			</div>
 		</div>
 		<hr>
+
 		<div class="row">
-			2 DIV
+			<div class="col-md-12">
+				<h2>NUEVA SECCIÓN</h2>
+			<img
+				src="http://www.medinacrespo.es/images/construccion.jpg"
+				class="img-fluid rounded-top"
+				alt="En construcción"
+				style="width: 50%; height: auto;"
+			/>
+			
+			
 		</div>
 	</div>
 {% endblock %}

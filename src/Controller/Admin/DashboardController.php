@@ -15,6 +15,7 @@ use App\Entity\Team;
 use App\Entity\Driver;
 use App\Entity\Meeting;
 use App\Entity\Schedule;
+use App\Entity\Session;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -30,8 +31,24 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
+        // Contamos el número de registros de cada entidad
+        $circuitCount = $this->entityManager->getRepository(Circuit::class)->count([]);
+        $driverCount = $this->entityManager->getRepository(Driver::class)->count([]);
+        $meetingCount = $this->entityManager->getRepository(Meeting::class)->count([]);
+        $scheduleCount = $this->entityManager->getRepository(Schedule::class)->count([]);
+        $seasonCount = $this->entityManager->getRepository(Season::class)->count([]);
+        $sessionCount = $this->entityManager->getRepository(Session::class)->count([]);
+        $teamCount = $this->entityManager->getRepository(Team::class)->count([]);
 
+        // Pasamos los resultados al template
         return $this->render('admin/dashboard.html.twig', [
+            'circuitCount' => $circuitCount,
+            'driverCount' => $driverCount,
+            'meetingCount' => $meetingCount,
+            'scheduleCount' => $scheduleCount,
+            'seasonCount' => $seasonCount,
+            'sessionCount' => $sessionCount,
+            'teamCount' => $teamCount,
         ]);
     }
 
