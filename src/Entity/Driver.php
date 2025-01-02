@@ -31,6 +31,9 @@ class Driver
     #[ORM\ManyToOne(inversedBy: 'drivers')]
     private ?Season $season = null;
 
+    #[ORM\Column(length: 3, nullable: true)]
+    private ?string $countryCode = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +107,18 @@ class Driver
     public function setSeason(?Season $season): static
     {
         $this->season = $season;
+
+        return $this;
+    }
+
+    public function getCountryCode(): ?string
+    {
+        return $this->countryCode;
+    }
+
+    public function setCountryCode(?string $countryCode): static
+    {
+        $this->countryCode = $countryCode;
 
         return $this;
     }

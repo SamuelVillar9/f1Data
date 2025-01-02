@@ -45,6 +45,14 @@ class DriverCrudController extends AbstractCrudController
                 ->setSortable(false), // Evita ordenar por este campo
 
             TextField::new('country', 'País de Nacimiento')->setRequired(false),
+            // Reemplazamos el campo 'countryCode' por la imagen de la bandera
+            TextField::new('countryCode', 'Código de País')
+                ->formatValue(function ($value, $entity) {
+                    // Asumiendo que las banderas están en 'public/uploads/country_flags'
+                    $flagUrl = '/uploads/country_flags/' . strtolower($value) . '.avif';
+                    // Retornamos el HTML para mostrar la bandera
+                    return sprintf('<img src="%s" alt="%s" style="width: 30px; height: auto;"/>', $flagUrl, $value);
+                }),
             IntegerField::new('racingNumber', 'Dorsal')->setRequired(false),
 
             // Configurar el campo Season como una relación
