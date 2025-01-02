@@ -2,8 +2,11 @@
 framework:
     secret: '%env(APP_SECRET)%'
 
-    # Note that the session will be started ONLY if you read or write from it.
-    session: true
+    # Configuración de la sesión
+    session:
+        # Duración máxima de la sesión en segundos (300 segundos = 5 minutos)
+        gc_maxlifetime: 300   # Caducidad de la sesión (5 minutos)
+        cookie_lifetime: 300  # Duración de la cookie de la sesión en segundos (5 minutos)
 
     #esi: true
     #fragments: true
