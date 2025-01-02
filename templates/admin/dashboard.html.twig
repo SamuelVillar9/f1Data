@@ -1,6 +1,6 @@
 {% extends '@EasyAdmin/layout.html.twig' %}
 
-{% block main %}
+{% block main %}s
 	<div>
 		<!-- Header y texto bienvenida -->
 		<div class="row">
@@ -14,70 +14,94 @@
 		<!-- Primera fila de 'cards'  -->
 		<div class="row">
 			<div class="col-md-3">
-				<div class="card">
-					<div class="card-body">
+				<div class="card d-flex flex-row">
+					<div class="d-flex justify-content-center align-items-center flex-shrink-0" style="width: 100px; background-color: #f0f0f0;">
+						<i class="fa-solid fa-list fs-1"></i>
+					</div>
+					<div class="card-body d-flex justify-content-start flex-column">
 						<h5 class="card-title">
-							<i class="fa-solid fa-list"></i>
-							Temporadas</h5>
+							Temporadas
+						</h5>
 						<h6 class="card-subtitle mb-2 text-muted">X Temporadas dadas de alta</h6>
-						<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\SeasonCrudController'}) }}" class="card-link">
-							<i class="fa-solid fa-plus"></i>
-							Añadir</a>
-						<a href="{{ path('admin', {'crudAction': 'index', 'crudControllerFqcn': 'App\\Controller\\Admin\\SeasonCrudController'}) }}" class="card-link">
-							<i class="fa-solid fa-eye"></i>
-							Listado
-						</a>
+						<div class="d-flex align-items-center">
+							<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\SeasonCrudController'}) }}" class="card-link me-2">
+								<i class="fa-solid fa-plus"></i>
+								Añadir
+							</a>
+							<a href="{{ path('admin', {'crudAction': 'index', 'crudControllerFqcn': 'App\\Controller\\Admin\\SeasonCrudController'}) }}" class="card-link">
+								<i class="fa-solid fa-eye"></i>
+								Listado
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="card">
-					<div class="card-body">
+				<div class="card d-flex flex-row">
+					<div class="d-flex justify-content-center align-items-center flex-shrink-0" style="width: 100px; background-color: #f0f0f0;">
+						<i class="fa-solid fa-ring fs-1"></i>
+					</div>
+					<div class="card-body d-flex justify-content-start flex-column">
 						<h5 class="card-title">
-							<i class="fa fa-solid fa-people-group"></i>
-							Escuderías</h5>
+							Escuderías
+						</h5>
 						<h6 class="card-subtitle mb-2 text-muted">X Escuderías dadas de alta</h6>
-						<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\TeamCrudController'}) }}" class="card-link">
-							<i class="fa-solid fa-plus"></i>
-							Añadir</a>
-						<a href="{{ path('admin', {'crudAction': 'index', 'crudControllerFqcn': 'App\\Controller\\Admin\\TeamCrudController'}) }}" class="card-link">
-							<i class="fa-solid fa-eye"></i>
-							Listado
-						</a>
+						<div class="d-flex align-items-center">
+							<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\TeamCrudController'}) }}" class="card-link me-2">
+								<i class="fa-solid fa-plus"></i>
+								Añadir
+							</a>
+							<a href="{{ path('admin', {'crudAction': 'index', 'crudControllerFqcn': 'App\\Controller\\Admin\\TeamCrudController'}) }}" class="card-link">
+								<i class="fa-solid fa-eye"></i>
+								Listado
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="card">
-					<div class="card-body">
+				<div class="card d-flex flex-row">
+					<div class="d-flex justify-content-center align-items-center flex-shrink-0" style="width: 100px; background-color: #f0f0f0;">
+						<i class="fa-solid fa-id-card fs-1"></i>
+					</div>
+					<div class="card-body d-flex justify-content-start flex-column">
 						<h5 class="card-title">
-							<i class="fa fa-solid fa-id-card"></i>
-							Pilotos</h5>
+							Pilotos
+						</h5>
 						<h6 class="card-subtitle mb-2 text-muted">X Pilotos dados de alta</h6>
-						<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\DriverCrudController'}) }}" class="card-link">
-							<i class="fa-solid fa-plus"></i>
-							Añadir</a>
-						<a href="{{ path('admin', {'crudAction': 'index', 'crudControllerFqcn': 'App\\Controller\\Admin\\DriverCrudController'}) }}" class="card-link">
-							<i class="fa-solid fa-eye"></i>
-							Listado
-						</a>
+						<div class="d-flex align-items-center">
+							<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\DriverCrudController'}) }}" class="card-link me-2">
+								<i class="fa-solid fa-plus"></i>
+								Añadir
+							</a>
+							<a href="{{ path('admin', {'crudAction': 'index', 'crudControllerFqcn': 'App\\Controller\\Admin\\DriverCrudController'}) }}" class="card-link">
+								<i class="fa-solid fa-eye"></i>
+								Listado
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="card">
-					<div class="card-body">
+				<div class="card d-flex flex-row">
+					<div class="d-flex justify-content-center align-items-center flex-shrink-0" style="width: 100px; background-color: #f0f0f0;">
+						<i class="fa-solid fa-earth-europe fs-1"></i>
+					</div>
+					<div class="card-body d-flex justify-content-start flex-column">
 						<h5 class="card-title">
-							<i class="fa fa-solid fa-ring"></i>
-							Circuitos</h5>
+							Circuitos
+						</h5>
 						<h6 class="card-subtitle mb-2 text-muted">X Circuitos dados de alta</h6>
-						<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\CircuitCrudController'}) }}" class="card-link">
-							<i class="fa-solid fa-plus"></i>
-							Añadir</a>
-						<a href="{{ path('admin', {'crudAction': 'index', 'crudControllerFqcn': 'App\\Controller\\Admin\\CircuitCrudController'}) }}" class="card-link">
-							<i class="fa-solid fa-eye"></i>
-							Listado
-						</a>
+						<div class="d-flex align-items-center">
+							<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\CircuitCrudController'}) }}" class="card-link me-2">
+								<i class="fa-solid fa-plus"></i>
+								Añadir
+							</a>
+							<a href="{{ path('admin', {'crudAction': 'index', 'crudControllerFqcn': 'App\\Controller\\Admin\\CircuitCrudController'}) }}" class="card-link">
+								<i class="fa-solid fa-eye"></i>
+								Listado
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -85,52 +109,71 @@
 		<br>
 		<div class="row">
 			<div class="col-md-4">
-				<div class="card">
-					<div class="card-body">
+				<div class="card d-flex flex-row">
+					<div class="d-flex justify-content-center align-items-center flex-shrink-0" style="width: 100px; background-color: #f0f0f0;">
+						<i class="fa-solid fa-calendar-days fs-1"></i>
+					</div>
+					<div class="card-body d-flex justify-content-start flex-column">
 						<h5 class="card-title">
-							<i class="fa-solid fa-calendar-days"></i>
-							Calendarios</h5>
+							Calendarios
+						</h5>
 						<h6 class="card-subtitle mb-2 text-muted">X Calendarios dados de alta</h6>
-						<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\ScheduleCrudController'}) }}" class="card-link">
-							<i class="fa-solid fa-plus"></i>
-							Añadir</a>
-						<a href="{{ path('admin', {'crudAction': 'index', 'crudControllerFqcn': 'App\\Controller\\Admin\\ScheduleCrudController'}) }}" class="card-link">
-							<i class="fa-solid fa-eye"></i>
-							Listado
-						</a>
+						<div class="d-flex align-items-center">
+							<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\ScheduleCrudController'}) }}" class="card-link me-2">
+								<i class="fa-solid fa-plus"></i>
+								Añadir
+							</a>
+							<a href="{{ path('admin', {'crudAction': 'index', 'crudControllerFqcn': 'App\\Controller\\Admin\\ScheduleCrudController'}) }}" class="card-link">
+								<i class="fa-solid fa-eye"></i>
+								Listado
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div class="card">
-					<div class="card-body">
+				<div class="card d-flex flex-row">
+					<div class="d-flex justify-content-center align-items-center flex-shrink-0" style="width: 100px; background-color: #f0f0f0;">
+						<i class="fa-solid fa-trophy fs-1"></i>
+					</div>
+					<div class="card-body d-flex justify-content-start flex-column">
 						<h5 class="card-title">
-							<i class="fa-solid fa-earth-europe"></i>
-							Grandes Premios</h5>
+							Grandes Premios
+						</h5>
 						<h6 class="card-subtitle mb-2 text-muted">X Grandes Premios dadas de alta</h6>
-						<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\MeetingCrudController'}) }}" class="card-link">
-							<i class="fa-solid fa-plus"></i>
-							Añadir</a>
-						<a href="{{ path('admin', {'crudAction': 'index', 'crudControllerFqcn': 'App\\Controller\\Admin\\MeetingCrudController'}) }}" class="card-link">
-							<i class="fa-solid fa-eye"></i>
-							Listado
-						</a>
+						<div class="d-flex align-items-center">
+							<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\MeetingCrudController'}) }}" class="card-link me-2">
+								<i class="fa-solid fa-plus"></i>
+								Añadir
+							</a>
+							<a href="{{ path('admin', {'crudAction': 'index', 'crudControllerFqcn': 'App\\Controller\\Admin\\MeetingCrudController'}) }}" class="card-link">
+								<i class="fa-solid fa-eye"></i>
+								Listado
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div class="card">
-					<div class="card-body">
+				<div class="card d-flex flex-row">
+					<div class="d-flex justify-content-center align-items-center flex-shrink-0" style="width: 100px; background-color: #f0f0f0;">
+						<i class="fa-solid fa-stopwatch fs-1"></i>
+					</div>
+					<div class="card-body d-flex justify-content-start flex-column">
 						<h5 class="card-title">
-							<i class="fa-solid fa-stopwatch"></i>
-							Sesiones</h5>
+							Sesiones
+						</h5>
 						<h6 class="card-subtitle mb-2 text-muted">X Sesiones dadas de alta</h6>
-						<a href="#" class="card-link">
-							<i class="fa-solid fa-plus"></i>
-							Añadir</a>
-						<a href="#" class="card-link">
-							<i class="fa-solid fa-eye"></i>
-							Listado</a>
+						<div class="d-flex align-items-center">
+							<a href="#" class="card-link me-2">
+								<i class="fa-solid fa-plus"></i>
+								Añadir
+							</a>
+							<a href="#" class="card-link">
+								<i class="fa-solid fa-eye"></i>
+								Listado
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
