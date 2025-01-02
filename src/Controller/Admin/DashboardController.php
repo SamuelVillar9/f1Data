@@ -62,17 +62,51 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::section('GESTIÓN DE DATOS');
-        yield MenuItem::linkToCrud('Temporadas', 'fa fa-solid fa-list', Season::class);
-        yield MenuItem::linkToCrud('Escuderías', 'fa fa-solid fa-people-group', Team::class);
-        yield MenuItem::linkToCrud('Pilotos', 'fa fa-solid fa-id-card', Driver::class);
-        yield MenuItem::linkToCrud('Circuitos', 'fa fa-solid fa-ring', Circuit::class);
-        yield MenuItem::linkToCrud('Calendario', 'fa fa-solid fa-calendar-days', Schedule::class);
-        yield MenuItem::linkToCrud('Grandes Premios', 'fa fa-solid fa-earth-europe', Meeting::class);
+
+        // Submenú para 'Temporadas'
+        yield MenuItem::subMenu('Temporadas', 'fa fa-solid fa-list')->setSubItems([
+            MenuItem::linkToCrud('Añadir Temporada', 'fa fa-solid fa-plus', Season::class)->setAction('new'),
+            MenuItem::linkToCrud('Listar Temporadas', 'fa fa-solid fa-list', Season::class)->setAction('index')
+        ]);
+
+        // Submenú para 'Escuderías'
+        yield MenuItem::subMenu('Escuderías', 'fa fa-solid fa-people-group')->setSubItems([
+            MenuItem::linkToCrud('Añadir Escudería', 'fa fa-solid fa-plus', Team::class)->setAction('new'),
+            MenuItem::linkToCrud('Listar Escuderías', 'fa fa-solid fa-list', Team::class)->setAction('index')
+        ]);
+
+        // Submenú para 'Pilotos'
+        yield MenuItem::subMenu('Pilotos', 'fa fa-solid fa-id-card')->setSubItems([
+            MenuItem::linkToCrud('Añadir Piloto', 'fa fa-solid fa-plus', Driver::class)->setAction('new'),
+            MenuItem::linkToCrud('Listar Pilotos', 'fa fa-solid fa-list', Driver::class)->setAction('index')
+        ]);
+
+        // Submenú para 'Circuitos'
+        yield MenuItem::subMenu('Circuitos', 'fa fa-solid fa-ring')->setSubItems([
+            MenuItem::linkToCrud('Añadir Circuito', 'fa fa-solid fa-plus', Circuit::class)->setAction('new'),
+            MenuItem::linkToCrud('Listar Circuitos', 'fa fa-solid fa-list', Circuit::class)->setAction('index')
+        ]);
+
+        // Submenú para 'Calendario'
+        yield MenuItem::subMenu('Calendario', 'fa fa-solid fa-calendar-days')->setSubItems([
+            MenuItem::linkToCrud('Añadir Carrera', 'fa fa-solid fa-plus', Schedule::class)->setAction('new'),
+            MenuItem::linkToCrud('Listar Carreras', 'fa fa-solid fa-list', Schedule::class)->setAction('index')
+        ]);
+
+        // Submenú para 'Grandes Premios'
+        yield MenuItem::subMenu('Grandes Premios', 'fa fa-solid fa-earth-europe')->setSubItems([
+            MenuItem::linkToCrud('Añadir Gran Premio', 'fa fa-solid fa-plus', Meeting::class)->setAction('new'),
+            MenuItem::linkToCrud('Listar Grandes Premios', 'fa fa-solid fa-list', Meeting::class)->setAction('index')
+        ]);
+
+        // Sección para enlaces públicos
         yield MenuItem::section('VISTA PÚBLICA');
         yield MenuItem::linkToUrl('Calendario', 'fa fa-solid fa-calendar-days', '/calendario');
         yield MenuItem::linkToUrl('Escuderías', 'fa fa-solid fa-people-group', '/escuderias');
         yield MenuItem::linkToUrl('Pilotos', 'fa fa-solid fa-id-card', '/pilotos');
         yield MenuItem::linkToUrl('Circuitos', 'fa fa-solid fa-ring', '/circuitos');
+
+        // Cerrar sesión
         yield MenuItem::section();
         yield MenuItem::linkToLogout('Cerrar Sesión', 'fa fa-sign-out');
     }
