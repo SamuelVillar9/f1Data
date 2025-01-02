@@ -88,6 +88,22 @@ class ScheduleCrudController extends AbstractCrudController
             })
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
                 return $action->setLabel('Eliminar');
+            })
+            // Botones en la página NEW
+            ->update(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER, function (Action $action) {
+                return $action->setLabel('Guardar y añadir otra');
+            })
+            ->update(Crud::PAGE_NEW, Action::SAVE_AND_RETURN, function (Action $action) {
+                return $action->setLabel('Guardar y volver');
+            })
+            // Botones en la página EDIT
+            ->update(Crud::PAGE_EDIT, Action::SAVE_AND_RETURN, function (Action $action) {
+                return $action->setLabel('Guardar y volver');
+            })
+            ->update(Crud::PAGE_EDIT, Action::SAVE_AND_CONTINUE, function (Action $action) {
+                return $action->setLabel('Guardar y continuar');
             });
+
+            
     }
 }
