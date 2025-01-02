@@ -32,29 +32,20 @@ class ScheduleCrudController extends AbstractCrudController
                 ->onlyOnDetail() // Solo mostrar en detalle
                 ->formatValue(function ($value, $entity) {
                     $meetings = $entity->getMeetings();
-                    $cards = [];
+                    $listItems = [];
 
-                    // Iniciar la fila de tarjetas
-                    $rowOpen = '<div class="row">';
-
-                    // Generar una tarjeta (card) para cada meeting
-                    foreach ($meetings as $index => $meeting) {
-                        // Crear el contenido de la tarjeta
-                        $card = sprintf(
-                            '<div class="col-md-3 mb-3">
-                            <div class="card h-100"> <!-- Usamos h-100 para asegurar que todas las cards tengan la misma altura -->
-                                <div class="card-header text-truncate">GP %s</div>
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title text-truncate">%s</h5>
-                                    <p class="card-text">%s</p>
-                                    <p class="card-text">%s</p
-                                    <a href="/admin/?crudAction=detail&crudControllerFqcn=%s&entityId=%d" class="btn btn-primary mt-auto">Ver detalles</a>
-                                </div>
-                            </div>
-                        </div>',
+                    // Generar una lista con cada meeting
+                    foreach ($meetings as $meeting) {
+                        $listItems[] = sprintf(
+                            '<li class="list-group-item">
+                                <strong>GP %s: </strong> %s <br>
+                                <em>%s</em><br>
+                                <span><strong>Circuito:</strong> %s</span><br>
+                                <a href="/admin/?crudAction=detail&crudControllerFqcn=%s&entityId=%d" class="btn btn-primary mt-2">Ver detalles</a>
+                            </li>',
                             // La ronda del meeting
                             htmlspecialchars($meeting->getRoundNumber()),
-                            // El nombre del meeting (usado como título de la tarjeta)
+                            // El nombre del meeting
                             htmlspecialchars($meeting->getMeetingName()),
                             // Mostrar las fechas de la carrera
                             htmlspecialchars($meeting->getDates()),
@@ -64,32 +55,15 @@ class ScheduleCrudController extends AbstractCrudController
                             urlencode(MeetingCrudController::class),
                             $meeting->getId()
                         );
-
-                        // Añadir la tarjeta a la fila
-                        $cards[] = $card;
-
-                        // Si hemos llegado a 4 tarjetas, cerramos la fila y abrimos una nueva
-                        if (($index + 1) % 4 == 0) {
-                            $rowClose = '</div>'; // Cerrar la fila
-                            $rowOpen = '<div class="row">'; // Abrir una nueva fila
-                            $cards[] = $rowClose;
-                            $cards[] = $rowOpen;
-                        }
                     }
 
-                    // Si quedan tarjetas sin cerrar, cerramos la última fila
-                    if (count($cards) % 4 != 0) {
-                        $cards[] = '</div>'; // Cerrar la última fila
-                    }
-
-                    // Devolver el HTML para todas las cards
-                    return $rowOpen . implode('', $cards);
+                    // Devolver el HTML de la lista de meetings
+                    return '<ul class="list-group">' . implode('', $listItems) . '</ul>';
                 });
         }
 
         return $fields;
     }
-
 
     public function configureCrud(Crud $crud): Crud
     {
@@ -114,8 +88,6 @@ class ScheduleCrudController extends AbstractCrudController
             })
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
                 return $action->setLabel('Eliminar');
-            })
-            // Más configuraciones para acciones en las páginas NEW y EDIT...
-        ;
+            });
     }
 }
