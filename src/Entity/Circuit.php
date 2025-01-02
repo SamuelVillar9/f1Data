@@ -36,6 +36,9 @@ class Circuit
     #[ORM\OneToMany(targetEntity: Meeting::class, mappedBy: 'circuitId')]
     private Collection $meetings;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $countryCode = null;
+
     public function __construct()
     {
         $this->meetings = new ArrayCollection();
@@ -139,5 +142,17 @@ class Circuit
     public function __toString(): string
     {
         return $this->circuitName;
+    }
+
+    public function getCountryCode(): ?string
+    {
+        return $this->countryCode;
+    }
+
+    public function setCountryCode(?string $countryCode): static
+    {
+        $this->countryCode = $countryCode;
+
+        return $this;
     }
 }

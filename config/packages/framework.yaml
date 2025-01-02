@@ -6,7 +6,6 @@ framework:
     session:
         # Duración máxima de la sesión en segundos (300 segundos = 5 minutos)
         gc_maxlifetime: 300   # Caducidad de la sesión (5 minutos)
-        cookie_lifetime: 300  # Duración de la cookie de la sesión en segundos (5 minutos)
 
     #esi: true
     #fragments: true

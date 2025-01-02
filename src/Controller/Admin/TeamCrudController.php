@@ -25,7 +25,19 @@ class TeamCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         $fields = [
-            TextField::new('fullNameTeam', 'Nombre del Equipo'),
+            TextField::new('fullNameTeam', 'Nombre del Equipo')
+            ->formatValue(function ($value, $entity) {
+                // Generamos la URL del detalle del equipo
+                $url = sprintf(
+                    '/admin/?crudAction=detail&crudControllerFqcn=App\\Controller\\Admin\\TeamCrudController&entityId=%d&seasonId=%d',
+                    $entity->getId(),
+                    $entity->getSeasonId()->getId()  // Asumimos que tienes una relación con la temporada y obtenemos su ID
+                );
+
+                // Devolvemos el nombre del equipo como un enlace
+                return sprintf('<a href="%s">%s</a>', $url, $value);
+            })
+            ->setSortable(true),
             TextField::new('base', 'Base del equipo')->setRequired(false),
             ImageField::new('urlTeamLogo', 'Foto Logo del Equipo')
                 ->setBasePath('uploads/team_logos')

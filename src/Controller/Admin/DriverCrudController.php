@@ -24,8 +24,19 @@ class DriverCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('fullDriverName', 'Nombre del Piloto'),
 
+            TextField::new('fullDriverName', 'Nombre del Piloto')
+            ->formatValue(function ($value, $entity) {
+                // Generamos la URL del detalle del equipo
+                $url = sprintf(
+                    '/admin/?crudAction=detail&crudControllerFqcn=App\\Controller\\Admin\\DriverCrudController&entityId=%d&seasonId=%d',
+                    $entity->getId(),
+                    $entity->getSeason()->getId()  // Asumimos que tienes una relación con la temporada y obtenemos su ID
+                );
+
+                // Devolvemos el nombre del equipo como un enlace
+                return sprintf('<a href="%s">%s</a>', $url, $value);
+            }),
             // Configurar los campos de imagen para las fotos del logo y el coche
             ImageField::new('urlDriverPhoto', 'Foto del Piloto')
                 ->setBasePath('uploads/driver_photo')  // Ruta base para acceder a las imágenes

@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField; // Para usar la URL de la imagen de la bandera
 
 class CircuitCrudController extends AbstractCrudController
 {
@@ -20,11 +21,26 @@ class CircuitCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-
-            TextField::new('circuitName', 'Nombre del Circuito'),
+            TextField::new('circuitName', 'Nombre del Circuito')
+                ->formatValue(function ($value, $entity) {
+                    // Generamos la URL del detalle del equipo
+                    $url = sprintf(
+                        '/admin/?crudAction=detail&crudControllerFqcn=App\\Controller\\Admin\\CircuitCrudController&entityId=%d',
+                        $entity->getId()
+                    );
+                    // Devolvemos el nombre del equipo como un enlace
+                    return sprintf('<a href="%s">%s</a>', $url, $value);
+                }),
             TextField::new('location', 'Ubicación'),
-            TextField::new('country', 'País'),
-            TextField::new('lengthKm','Longitud (Km)'),
+            // Reemplazamos el campo 'countryCode' por la imagen de la bandera
+            TextField::new('countryCode', 'Código de País')
+                ->formatValue(function ($value, $entity) {
+                    // Asumiendo que las banderas están en 'public/uploads/country_flags'
+                    $flagUrl = '/uploads/country_flags/' . strtolower($value) . '.avif';
+                    // Retornamos el HTML para mostrar la bandera
+                    return sprintf('<img src="%s" alt="%s" style="width: 30px; height: auto;"/>', $flagUrl, $value);
+                }),
+            TextField::new('lengthKm', 'Longitud (Km)'),
 
             // Configurar los campos de imagen para las fotos del circuito
             ImageField::new('urlCircuitPhoto', 'Foto del Circuito')
@@ -32,7 +48,6 @@ class CircuitCrudController extends AbstractCrudController
                 ->setUploadDir('public/uploads/circuits')  // Ruta donde se almacenarán las imágenes en el servidor
                 ->setRequired(false)
                 ->setSortable(false), // Evita ordenar por este campo
-
         ];
     }
 
@@ -45,7 +60,6 @@ class CircuitCrudController extends AbstractCrudController
             ->setPageTitle('detail', 'Detalle circuito') // Para la página "detail"
             ->setEntityLabelInSingular('Circuito')   // Etiqueta singular
             ->setEntityLabelInPlural('Circuitos');   // Etiqueta plural
-            
     }
 
     public function configureActions(Actions $actions): Actions
@@ -61,7 +75,6 @@ class CircuitCrudController extends AbstractCrudController
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
                 return $action->setLabel('Eliminar');
             })
-
             // Botones en la página NEW
             ->update(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER, function (Action $action) {
                 return $action->setLabel('Guardar y añadir otra');
@@ -69,7 +82,6 @@ class CircuitCrudController extends AbstractCrudController
             ->update(Crud::PAGE_NEW, Action::SAVE_AND_RETURN, function (Action $action) {
                 return $action->setLabel('Guardar y volver');
             })
-
             // Botones en la página EDIT
             ->update(Crud::PAGE_EDIT, Action::SAVE_AND_RETURN, function (Action $action) {
                 return $action->setLabel('Guardar y volver');

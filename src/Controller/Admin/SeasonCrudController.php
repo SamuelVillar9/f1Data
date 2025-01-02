@@ -19,6 +19,26 @@ class SeasonCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        // Si estamos en la página de índice, generamos un enlace para el nombre de la temporada
+        if ($pageName === Crud::PAGE_INDEX) {
+            return [
+                TextField::new('seasonName', 'Temporada')
+                    ->formatValue(function ($value, $entity) {
+                        // Generamos la URL del detalle de la temporada
+                        $url = sprintf(
+                            '/admin/?crudAction=detail&crudControllerFqcn=App\\Controller\\Admin\\SeasonCrudController&entityId=%d&seasonId=%d',
+                            $entity->getId(),
+                            $entity->getId()  // Asumimos que el ID de la temporada es el mismo para 'entityId' y 'seasonId'
+                        );
+
+                        // Devolvemos el nombre de la temporada como un enlace
+                        return sprintf('<a href="%s">%s</a>', $url, $value);
+                    })
+                    ->setSortable(true),
+            ];
+        }
+
+        // Para otras páginas, solo mostramos el nombre de la temporada
         return [
             TextField::new('seasonName', 'Temporada')
         ];
