@@ -99,6 +99,12 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Listar Grandes Premios', 'fa fa-solid fa-list', Meeting::class)->setAction('index')
         ]);
 
+        // Submenú para 'Sesiones'
+        yield MenuItem::subMenu('Sesiones', 'fa fa-solid fa-stopwatch')->setSubItems([
+            MenuItem::linkToCrud('Añadir Sesión', 'fa fa-solid fa-plus', Session::class)->setAction('new'),
+            MenuItem::linkToCrud('Listar Sesiones', 'fa fa-solid fa-list', Session::class)->setAction('index')
+        ]);
+
         // Sección para enlaces públicos
         yield MenuItem::section('VISTA PÚBLICA');
         yield MenuItem::linkToUrl('Calendario', 'fa fa-solid fa-calendar-days', '/calendario');

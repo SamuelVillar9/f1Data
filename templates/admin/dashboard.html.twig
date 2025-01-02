@@ -166,11 +166,11 @@
 						</h5>
 						<h6 class="card-subtitle mb-2 text-muted">{{ sessionCount }} Sesiones dadas de alta</h6>
 						<div class="d-flex align-items-center">
-							<a href="#" class="card-link me-2">
+							<a href="{{ path('admin', {'crudAction': 'new', 'crudControllerFqcn': 'App\\Controller\\Admin\\SessionCrudController'}) }}" class="card-link me-2">
 								<i class="fa-solid fa-plus"></i>
 								Añadir
 							</a>
-							<a href="#" class="card-link">
+							<a href="{{ path('admin', {'crudAction': 'index', 'crudControllerFqcn': 'App\\Controller\\Admin\\SessionCrudController'}) }}" class="card-link">
 								<i class="fa-solid fa-eye"></i>
 								Listado
 							</a>
