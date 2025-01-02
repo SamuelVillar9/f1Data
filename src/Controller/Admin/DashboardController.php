@@ -79,6 +79,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Calendario', 'fa fa-solid fa-calendar-days', Schedule::class);
         yield MenuItem::linkToCrud('Grandes Premios', 'fa fa-solid fa-earth-europe', Meeting::class);
         yield MenuItem::section('VISTA PÚBLICA');
+        yield MenuItem::linkToUrl('Calendario', 'fa fa-solid fa-calendar-days', '/calendario');
         yield MenuItem::linkToUrl('Escuderías', 'fa fa-solid fa-people-group', '/escuderias');
         yield MenuItem::linkToUrl('Pilotos', 'fa fa-solid fa-id-card', '/pilotos');
         yield MenuItem::linkToUrl('Circuitos', 'fa fa-solid fa-ring', '/circuitos');

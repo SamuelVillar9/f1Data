@@ -1,20 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ScheduleController!{% endblock %}
+{% block title %}Calendarios{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container my-5">
+        <h1 class="mb-4">Calendarios</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <!-- Formulario para seleccionar temporada -->
+        <form method="get" action="{{ path('schedule') }}" class="mb-4">
+            <label for="season" class="form-label">Selecciona la temporada:</label>
+            <select name="season" id="season" class="form-select">
+                <option value="">Todos los calendarios</option>
+                {% for season in seasons %}
+                    <option value="{{ season.id }}" {% if season.id == app.request.query.get('season') %} selected {% endif %}>
+                        {{ season.seasonName }}
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary mt-3">Filtrar</button>
+        </form>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/Beatriz/Documents/Samu/f1data/src/Controller/ScheduleController.php</code></li>
-        <li>Your template at <code>C:/Users/Beatriz/Documents/Samu/f1data/templates/schedule/index.html.twig</code></li>
-    </ul>
-</div>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for schedule in schedules %}
+                <div class="col">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-header text-center bg-light">
+                            <h5 class="card-title">{{ schedule.scheduleName }}</h5>
+                            <p class="card-subtitle mb-2 text-muted">
+                                Temporada: {{ schedule.seasonId ? schedule.seasonId.seasonName : 'Temporada no disponible' }}
+                            </p>
+                        </div>
+
+                        <div class="card-body">
+                            <h6 class="card-title">Grandes Premios:</h6>
+                            {% if schedule.meetings|length > 0 %}
+                                <ul class="list-unstyled">
+                                    {% for meeting in schedule.meetings %}
+                                        <li class="mb-3">
+                                            <strong>GP {{ meeting.roundNumber }}:</strong> 
+                                            {{ meeting.meetingName }}<br>
+                                            <em>{{ meeting.dates }}</em><br>
+                                            <span><strong>Circuito:</strong> {{ meeting.circuitId.circuitName }}</span><br>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>No hay grandes premios asociados a este calendario.</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="card-footer text-center">
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <div class="alert alert-warning text-center" role="alert">
+                        No hay calendarios disponibles para la temporada seleccionada.
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

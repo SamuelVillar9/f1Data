@@ -22,7 +22,7 @@ class ScheduleController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/schedule', name: 'app_schedule')]
+    #[Route('/calendario', name: 'schedule')]
     public function index(Request $request, ScheduleRepository $scheduleRepository): Response
     {
 
