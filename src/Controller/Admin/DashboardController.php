@@ -9,7 +9,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use App\Entity\Season;
 use App\Entity\Team;
@@ -31,34 +30,8 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        $request = $this->container->get('request_stack')->getCurrentRequest();
-        $selectedSeasonId = $request->query->get('season_id', null);
-
-        $seasons = $this->entityManager->getRepository(Season::class)->findAll();
-
-        $teams = [];
-        if ($selectedSeasonId) {
-            $season = $this->entityManager->getRepository(Season::class)->find($selectedSeasonId);
-            if ($season) {
-                $teams = $season->getTeams();
-            }
-        }
-
-        // Generar URLs para cada equipo
-        $teamUrls = [];
-        foreach ($teams as $team) {
-            $teamUrls[$team->getId()] = $this->adminUrlGenerator
-                ->setController(TeamCrudController::class)
-                ->setAction('detail') // Cambiar a 'edit' si prefieres la vista de edición
-                ->setEntityId($team->getId())
-                ->generateUrl();
-        }
 
         return $this->render('admin/dashboard.html.twig', [
-            'seasons' => $seasons,
-            'teams' => $teams,
-            'selectedSeasonId' => $selectedSeasonId,
-            'teamUrls' => $teamUrls,
         ]);
     }
 
