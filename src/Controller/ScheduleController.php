@@ -24,28 +24,32 @@ class ScheduleController extends AbstractController
 
     #[Route('/calendario', name: 'schedule')]
     public function index(Request $request, ScheduleRepository $scheduleRepository): Response
-    {
+{
+    // Obtener todas las temporadas desde el repositorio
+    $seasons = $this->entityManager->getRepository(Season::class)->findBy([], ['seasonName' => 'ASC']);
 
-        // Obtener todas las temporadas desde el repositorio
-        $seasons = $this->entityManager->getRepository(Season::class)->findBy([], ['seasonName' => 'ASC']);
-
-        // Capturar el ID de la temporada seleccionada desde el formulario (si lo hay)
-        $seasonId = $request->query->get('season');
-
-        if ($seasonId) {
-            // Buscar la temporada seleccionada
-            $season = $this->entityManager->getRepository(Season::class)->find($seasonId);
-
-            // Obtener los pilotos de esa temporada
-            $schedules = $scheduleRepository->findBy(['seasonId' => $season]);
-        } else {
-            // Si no se seleccionó ninguna temporada, mostrar todos los pilotos
-            $schedules = $scheduleRepository->findAll();
-        }
-
-        return $this->render('schedule/index.html.twig', [
-            'schedules' => $schedules,
-            'seasons' => $seasons,  // Enviar las temporadas a la vista
-        ]);
+    // Obtener la temporada seleccionada desde el formulario, o la temporada 2025 si no se ha seleccionado ninguna
+    $seasonId = $request->query->get('season');
+    
+    // Si no hay temporada seleccionada, cargamos por defecto la temporada 2025
+    if (!$seasonId) {
+        $season = $this->entityManager->getRepository(Season::class)->findOneBy(['seasonName' => '2025']);
+    } else {
+        // Si se seleccionó una temporada, la buscamos
+        $season = $this->entityManager->getRepository(Season::class)->find($seasonId);
     }
+
+    // Obtener los calendarios de la temporada seleccionada
+    if ($season) {
+        $schedules = $scheduleRepository->findBy(['seasonId' => $season]);
+    } else {
+        $schedules = $scheduleRepository->findAll(); // Si no se encuentra temporada, mostramos todos los calendarios
+    }
+
+    return $this->render('schedule/index.html.twig', [
+        'schedules' => $schedules,
+        'seasons' => $seasons,
+        'selectedSeason' => $season ? $season->getId() : null,
+    ]);
+}
 }
