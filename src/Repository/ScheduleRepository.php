@@ -16,6 +16,18 @@ class ScheduleRepository extends ServiceEntityRepository
         parent::__construct($registry, Schedule::class);
     }
 
+    public function findBySeasonWithOrderedMeetings($season)
+    {
+        return $this->createQueryBuilder('s')
+            ->leftJoin('s.meetings', 'm')
+            ->addSelect('m')
+            ->where('s.seasonId = :season')
+            ->setParameter('season', $season)
+            ->orderBy('m.roundNumber', 'ASC') // Ordenamos por 'roundNumber'
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Schedule[] Returns an array of Schedule objects
     //     */

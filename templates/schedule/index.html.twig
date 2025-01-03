@@ -1,78 +1,93 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Calendarios{% endblock %}
+{% block title %}Calendarios
+{% endblock %}
 
 {% block body %}
-    <div class="container my-5">
-        <h1 class="mb-4">Calendarios</h1>
+	<div class="container" style="margin-top: 100px;">
+		<h1 class="mb-4">Calendario Temporada</h1>
 
-        <!-- Formulario para seleccionar temporada -->
-        <form method="get" action="{{ path('schedule') }}" class="mb-4">
-            <label for="season" class="form-label">Selecciona la temporada:</label>
-            <select name="season" id="season" class="form-select">
-                {% for season in seasons %}
-                    <option value="{{ season.id }}" {% if season.id == selectedSeason or (not selectedSeason and season.seasonName == '2025') %} selected {% endif %}>
-                        {{ season.seasonName }}
-                    </option>
-                {% endfor %}
-            </select>
-            <button type="submit" class="btn btn-primary mt-3">Filtrar</button>
-        </form>
+		<!-- Formulario para seleccionar temporada -->
+		<form method="get" action="{{ path('schedule') }}" class="mb-4">
+			<label for="season" class="form-label">Selecciona la temporada:</label>
+			<select name="season" id="season" class="form-select">
+				{% for season in seasons %}
+					<option value="{{ season.id }}" {% if season.id == selectedSeason or (not selectedSeason and season.seasonName == '2025') %} selected {% endif %}>
+						{{ season.seasonName }}
+					</option>
+				{% endfor %}
+			</select>
+			<button type="submit" class="btn btn-primary mt-3">Filtrar</button>
+		</form>
 
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            {% for schedule in schedules %}
-                <div class="col">
-                    <div class="card shadow-sm h-100">
-                        <div class="card-header text-center bg-light">
-                            <h5 class="card-title">{{ schedule.scheduleName }}</h5>
-                            <p class="card-subtitle mb-2 text-muted">
-                                Temporada:
-                                {{ schedule.seasonId ? schedule.seasonId.seasonName : 'Temporada no disponible' }}
-                            </p>
-                        </div>
+		{% for schedule in schedules %}
+			<div class="row">
+				<div class="col">
+					<h2 class="text-center text-uppercase">{{ schedule.scheduleName }}</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								{% if schedule.meetings|length > 0 %}
+									{% for meeting in schedule.meetings %}
+										<div class="col-md-3" style="margin-bottom: 40px;">
+											<div class="card bg-dark text-white h-100">
+												<div class="card-body">
+													{% if meeting.roundNumber == 0 %}
+														<div class="row justify-content">
+															<div class="col-4">
+																<h4 class="card-title">TEST
+																</div>
+																<div class="col-4">
+																	<img src="/uploads/country_flags/{{ meeting.circuitId.countryCode }}.avif" style="width:50px; height:auto;" class="rounded-pill" alt="{{ meeting.circuitId.countryCode }}"></h4>
+															</div>
+														</div>
+													{% else %}
+														<div class="row justify-content-between">
+															<div class="col-4">
+																<h4 class="card-title">R{{ meeting.roundNumber }}
+																</div>
+																<div class="col-4">
+																	<img src="/uploads/country_flags/{{ meeting.circuitId.countryCode }}.avif" style="width:50px; height:auto;" class="rounded-pill" alt="{{ meeting.circuitId.countryCode }}"></h4>
+															</div>
+														</div>
+													{% endif %}
+													<h6>{{ meeting.meetingName }}</h6>
+													<hr>
+													<p class="card-text text-center">Fechas GP
+														{{ meeting.dates }}</p>
+													<p class="card-text text-center">Longitud GP
+														{{ meeting.circuitId.lengthKm }}
+														km</p>
+												</div>
+												<img src="/uploads/circuits/{{ meeting.circuitId.urlCircuitPhoto }}" class="card-img-bottom" alt="{{ meeting.circuitId.urlCircuitPhoto }}"><br>
+												<div class="card-footer text-center">
+													{% if meeting.sessions|length > 0 %}
+														<h6 class="mt-3 text-center">Sesiones:</h6>
+														<button type="button" class="btn btn-link text-center">Ver más información</button>
+													{% else %}
+														<h6 class="mt-3 text-center">No hay sesiones asociadas a este GP.</h6>
+													{% endif %}
+												</div>
 
-                        <div class="card-body">
-                            <h6 class="card-title">Grandes Premios:</h6>
-                            {% if schedule.meetings|length > 0 %}
-                                <ul class="list-unstyled">
-                                    {% for meeting in schedule.meetings %}
-                                        <li class="mb-3">
-                                            <strong>GP {{ meeting.roundNumber }}:</strong> {{ meeting.meetingName }}<br>
-                                            <em>{{ meeting.dates }}</em><br>
-                                            <span>
-                                                <strong>Circuito:</strong>
-                                                {{ meeting.circuitId.circuitName }}
-                                            </span><br>
-
-                                            <!-- Mostrar las sesiones de cada meeting -->
-                                            {% if meeting.sessions|length > 0 %}
-                                                <h6 class="mt-3">Sesiones:</h6>
-                                                <ul class="list-unstyled">
-                                                    {% for session in meeting.sessions %}
-                                                        <li>{{ session.sessionName }} - {{ session.date|date('d/m/Y H:i') }}</li>
-                                                    {% endfor %}
-                                                </ul>
-                                            {% else %}
-                                                <p>No hay sesiones asociadas a este GP.</p>
-                                            {% endif %}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                <p>No hay grandes premios asociados a este calendario.</p>
-                            {% endif %}
-                        </div>
-
-                        <div class="card-footer text-center"></div>
-                    </div>
-                </div>
-            {% else %}
-                <div class="col-12">
-                    <div class="alert alert-warning text-center" role="alert">
-                        No hay calendarios disponibles para la temporada seleccionada.
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+											</div>
+										</div>
+									{% endfor %}
+								{% else %}
+									<div class="col">
+										<div class="alert alert-warning text-center" role="alert">
+											No hay grandes premios asociados a este calendario.
+										</div>
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
 {% endblock %}
